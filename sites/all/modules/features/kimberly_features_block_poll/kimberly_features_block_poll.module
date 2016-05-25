@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the kimberly_features_block_poll feature.
+ */
+
+include_once 'kimberly_features_block_poll.features.inc';

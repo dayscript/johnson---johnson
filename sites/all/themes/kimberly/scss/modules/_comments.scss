@@ -1,0 +1,53 @@
+.sharethis-buttons{
+  margin: 10px 0;
+}
+#comments,
+.page-comment{
+  h2.title{
+    font-family: $font-sansanormal;
+    color: #ffffff;
+    font-size: 1.6rem;
+    &.comment-form{
+      border-bottom: 2px solid white;
+    }
+  }
+  .comment{
+    border-top: 2px solid white;
+    .field-name-comment-body{
+      color: $text-gray;
+      font-family: $font-sans;
+      font-size: 0.85rem;
+    }
+    .submitted{
+      .permalink{
+        display: none;
+      }
+      color: $text-lightgray;
+      font-size: 0.9rem;
+      font-family: $font-sans;
+    }
+    .new{
+      background: $darkred;
+      color: #ffffff;
+      font-family: $font-sansalight;
+      display: block;
+      height: 25px;
+      padding: 0px 5px;
+      border-radius: 12px;
+      float: left;
+      margin-top: 9px;
+      margin-right: 5px;
+    }
+  }
+  .comment-form{
+    #edit-author--2{
+      display: none;
+    }
+    label, .description .has-tip{
+      color: white;
+    }
+    button.secondary{
+      background: $darkred;
+    }
+  }
+}

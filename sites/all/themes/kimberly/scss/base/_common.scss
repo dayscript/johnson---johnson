@@ -1,0 +1,60 @@
+// Common abstract classes to extend or parametrics are stored here.
+
+// Example parametrics.
+// ------------------------------------------------------
+// %font-FONTNAME   {}
+// %font-sans-serif { font-family: sans-serif; }
+// %font-serif      { font-family: serif; }
+@font-face {
+  font-family: 'SansaProLight';
+  src: url('../fonts/sansapro-light/SansaProLight.eot');
+  src: url('../fonts/sansapro-light/SansaProLight.eot') format('embedded-opentype'),
+  url('../fonts/sansapro-light/SansaProLight.woff2') format('woff2'),
+  url('../fonts/sansapro-light/SansaProLight.woff') format('woff'),
+  url('../fonts/sansapro-light/SansaProLight.ttf') format('truetype'),
+  url('../fonts/sansapro-light/SansaProLight.svg#SansaProLight') format('svg');
+}
+@font-face {
+  font-family: 'SansaProNormal';
+  src: url('../fonts/sansapro-normal/SansaProNormal.eot');
+  src: url('../fonts/sansapro-normal/SansaProNormal.eot') format('embedded-opentype'),
+  url('../fonts/sansapro-normal/SansaProNormal.woff2') format('woff2'),
+  url('../fonts/sansapro-normal/SansaProNormal.woff') format('woff'),
+  url('../fonts/sansapro-normal/SansaProNormal.ttf') format('truetype'),
+  url('../fonts/sansapro-normal/SansaProNormal.svg#SansaProNormal') format('svg');
+}
+@font-face {
+  font-family: 'SansaProNormalItalic';
+  src: url('../fonts/sansapro-normali/SansaProNormalItalic.eot');
+  src: url('../fonts/sansapro-normali/SansaProNormalItalic.eot') format('embedded-opentype'),
+  url('../fonts/sansapro-normali/SansaProNormalItalic.woff2') format('woff2'),
+  url('../fonts/sansapro-normali/SansaProNormalItalic.woff') format('woff'),
+  url('../fonts/sansapro-normali/SansaProNormalItalic.ttf') format('truetype'),
+  url('../fonts/sansapro-normali/SansaProNormalItalic.svg#SansaProNormalItalic') format('svg');
+}
+@font-face {
+  font-family: 'Oswald-Bold';
+  src: url('../fonts/oswald/Oswald-Bold.eot') format('embedded-opentype');
+  src:  url('../fonts/oswald/Oswald-woff.eot') format('woff'), url('../fonts/oswald/Oswald-Bold.ttf')  format('truetype'), url('../fonts/oswald/Oswald-Bold.svg#Oswald-Bold') format('svg');
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway.eot') format('embedded-opentype');
+  src:  url('../fonts/raleway/Raleway.woff') format('woff'), url('../fonts/raleway/Raleway.ttf')  format('truetype'), url('../fonts/raleway/Raleway.svg#Raleway') format('svg');
+}
+
+
+
+$font-sans: "Open Sans", "Helvetica", sans-serif;
+$font-sansalight: "Oswald-Bold", "Open Sans", "Helvetica", sans-serif;
+$font-sansanormal: "Raleway", "Open Sans", "Helvetica", sans-serif;
+$font-sansanormali: "Raleway", "Open Sans", "Helvetica", sans-serif;
+
+$lightgreen: #7bc051;
+$darkred: #108ecf;
+$blue1: #26649c;
+$text-gray: #999;
+$text-lightgray: #ccc;
+$text-darkgray: #333;
+$darkgreen: #525b2b;
+$blue2: #7b93c6;

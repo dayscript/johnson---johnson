@@ -1,0 +1,4 @@
+name = Kimberly poll
+description = Create form to show the questions
+core = 7.x
+package = Kimberly

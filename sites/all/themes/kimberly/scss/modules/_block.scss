@@ -1,0 +1,165 @@
+h2.block-title{
+  font-family: $font-sansalight;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  color: #ffffff;
+}
+
+// Texto en pantalla de login
+.block-block-3{
+  p{
+    font-size: 0.9rem;
+    font-family: $font-sansalight;
+  }
+}
+// Footer en pantalla de login
+.block-block-1{
+  p{
+    font-size: 0.7rem;
+  }
+
+}
+
+// Logo e intro de pantalla de login
+.block-block-4{
+  p{
+    font-family: $font-sansalight;
+    font-size: 1.65rem;
+    text-transform: uppercase;
+    line-height: 2rem;
+
+  }
+}
+.block-blockify-blockify-logo{
+  margin: 280px 0 7px 0;
+}
+.block-views-noticias-block,
+.block-views-entretenimiento-block,
+.block-views-eventos-block,
+.block-dsusers-dsusers-presentation-block{
+  h2.block-title{
+    background: url("../images/backgrounds/title-header.jpg") left center repeat;
+    padding: 30px;
+    margin-bottom: 0;
+  }
+}
+.block-views-noticias-block-3{
+  h2.block-title{
+    background: url("../images/backgrounds/title-header-ca.jpg") left center repeat;
+    padding: 30px;
+    margin-bottom: 0;
+  }
+}
+.block-views-eventos-block-3{
+  h2.block-title{
+    background: url("../images/headers/title-header-fe.jpg") left center repeat;
+    padding: 30px;
+    margin-bottom: 0;
+  }
+}
+.block-views-universidad-block{
+  h2.block-title{
+    background: url("../images/headers/title-header-in.jpg") left center repeat;
+    padding: 30px;
+    margin-bottom: 0;
+  }
+}
+.block-views-entretenimiento-block-2{
+  h2.block-title{
+    background: url("../images/headers/title-header.jpg") left center repeat;
+    padding: 30px;
+    margin-bottom: 0; 
+  }
+}
+.block-views{
+  margin-bottom: 15px;
+}
+
+//kimberly poll
+#kimberly-poll-quest-form{
+  background: #fff;
+  & > div{
+    display: block;
+    overflow: hidden;
+  }
+  .question{
+    float: left;
+    width: 40%;
+    margin: 0 5% 15px;
+    height: 295px;
+    label{
+      font-weight: bold;
+      font-size: 17px;
+    }
+    .form-radios{
+      label{
+        font-weight: normal;
+        color: #999;
+        margin: 0;
+        display: inline;
+      }
+      input{
+        margin: 0;
+        display: inline;
+      }
+    } 
+  }
+  .form-type-radios{
+    //margin-bottom:  
+  }  
+  .content-submit{
+    display: block;
+    clear: both;
+    padding: 15px 0 5px;
+    #edit-send{
+      display: block;
+      margin: 0 auto 15px;
+      background: #8E2A2A;
+    }
+  }
+}
+
+.messages-poll {
+  display: block;
+  padding: 0 35px 10px;
+  background-color: #fff;
+  * {
+    color: #444;
+    text-align: center;
+  }
+}
+
+.block-views-views-banner-slider-home-block{
+    max-width: 1140px;
+    min-width: 1140px;
+    width: 1140px;
+    margin-bottom: 30px;
+    .views-field-title{
+      display: none;
+    }
+    h2{
+      display: none;
+    }
+    .flexslider{
+      border:0;
+      margin: 0;
+    }
+    .flex-prev{
+      height: 70px;
+    }
+    .flex-next{
+      height: 70px;
+    }
+    .flex-control-nav{
+      bottom: 50px;
+      z-index: 3;
+    }
+} 
+
+.block-md-slider{
+ display:none;
+}
+
+.page-user form button.secondary {
+    background: #108ecf; 
+}

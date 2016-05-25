@@ -1,0 +1,95 @@
+.node-type-evento{
+  .body.field{
+    background: #ffffff;
+    padding: 20px;
+    p{
+      color: $text-gray;
+      font-size: 0.95rem;
+    }
+  }
+  .field-name-title{
+    h1{
+      font-family: $font-sansalight;
+      color: #ffffff;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+  }
+  .field-name-post-date,
+  .field-name-field-fecha{
+    color: #ffffff;
+    font-family: $font-sansalight;
+    font-size: 0.85rem;
+    b{
+      background: $darkred;
+      border-radius: 12px;
+      height: 25px;
+      width: 25px;
+      display: inline-block;
+      text-align: center;
+      padding: 3px;
+    }
+  }
+}
+.view-eventos{
+  .views-field-created,
+  .views-field-field-fecha{
+    background-color: #ffffff;
+    color: $darkred;
+    font-family: $font-sansanormali;
+    font-size: 0.75rem;
+    padding: 25px 25px 0 25px;
+  }
+  .arrow{
+    margin-top: -21px;
+    height: 21px;
+  }
+  .arrow2{
+    margin-top: -7px;
+    position: absolute;
+  }
+  .views-field-title{ 
+    background-color: #ffffff;
+    font-family: $font-sansanormal;
+    font-size: 1rem;
+    padding: 5px 25px 10px 25px;
+    text-transform: uppercase;
+    //min-height: 63px;
+    a{
+      color: $text-darkgray;
+    }
+  }
+  .views-field-body{
+    background-color: #ffffff;
+    padding: 0 25px 15px 25px;
+    height: 92px;
+    p{
+      font-family: $font-sansanormal;
+      color: $text-darkgray;
+      font-size: 0.75rem;
+    }
+  }
+  &.view-display-id-block_1,
+  &.view-display-id-block_2,
+  &.view-display-id-block_3{
+    &>.view-content{
+      .views-row{
+        margin-bottom: 20px;
+      }
+      .views-row-1{
+        padding-right: 0;
+      }
+    }
+    .attachment{
+      .views-row-1{
+        padding-left: 0;
+      }
+    }
+    .more-link{
+      padding-right: 15px;
+    }
+    .views-row-even{
+      padding-left: 0;
+    }
+  }
+}

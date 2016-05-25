@@ -1,0 +1,142 @@
+.block-dsusers{
+  font-family: $font-sansanormal;
+  margin: 20px 0 7px 0;
+  color: #ffffff;
+  font-size: 0.8rem;
+  .welcome{
+    .name{
+      text-transform: uppercase;
+    }
+    .logout{
+      border-top: 4px solid #4d4d4d;
+      float: right;
+      padding: 3px 0 0 10px;
+      margin-top: 3px;
+      a{
+        color: #ffffff;
+        font-family: $font-sansanormali;
+        font-size: 0.85rem;
+      }
+    }
+  }
+  .myaccount{
+    background: #4d4d4d;
+    font-family: $font-sansalight;
+    a{
+      text-transform: uppercase;
+      color: white;
+      padding: 15px 0px;
+      display: block;
+      //background: url("../images/backgrounds/my-account.png") no-repeat -4px 6px;
+    }
+  }
+}
+.block-user-login{
+  font-family: $font-sansalight;
+  label[for="edit-pass"],
+  label[for="edit-name"]{
+    display: none;
+  }
+  h2.block-title{
+    text-align: center;
+    font-size: 1.2rem;
+    color: #000
+  }
+  #edit-submit{
+    background: #4d4d4d;
+    font-family: $font-sansalight;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    padding: 8px;
+    &:hover{
+      background: lighten( #4d4d4d, 10% );
+    }
+  }
+  .item-list{
+    ul{
+      margin-left: 0;
+      li{
+        list-style: none;
+        text-align: center;
+        a{
+          font-size: 0.8rem;
+          color: $text-gray;
+          &:hover{
+            text-decoration: underline;  
+          }
+        }
+      }
+    }
+  }
+}
+.front.not-logged-in{
+  .main-wrapper{
+    background: url("../images/backgrounds/login.jpg") center 0px no-repeat;
+    padding: 50px 0;
+    min-height: 500px;
+    .block-user-login {
+      background: none;
+      max-width: 300px;
+    }
+  }
+}
+.page-user{
+  form{
+    max-width: 600px;
+    color: white;
+    .form-item{
+      label{
+        color: white;
+      }
+      a{
+        color: #008cba;
+      }
+      .description{
+        color: #ffffff;
+        .has-tip{
+          color: #008cba;
+        }
+      }
+    }
+    button.secondary{
+      background: #108ecf;
+    }
+    fieldset {
+      legend{
+        background: none;
+        color: #ffffff;
+      }
+    }
+  }
+}
+.block-dsusers-dsusers-presentation-block{
+  margin-top: 0;
+  h2{
+    margin-top: 0;
+  }
+  margin-bottom: 20px;
+}
+
+.page-user{
+  .profile, .user-profile{
+    background: #ffffff;
+    padding: 20px;
+    p {
+      color: $text-gray;
+      font-size: 0.95rem;
+      a{
+        color: #008CBA;
+        &.button{
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+.not-logged-in form#user-login{
+  max-width: 300px;
+  margin: 0 auto;
+}

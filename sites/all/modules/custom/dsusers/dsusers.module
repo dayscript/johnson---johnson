@@ -1,0 +1,383 @@
+<?php
+/**
+ * Implements hook_theme().
+ */
+function dsusers_theme()
+{
+    $hooks = array();
+    $hooks[ 'dsusers_logged_block' ] = array(
+        'variables' => array( 'data' => array() ),
+        'template'  => "templates/logged_user"
+    );
+    $hooks[ 'dsusers_presentation_block' ] = array(
+        'variables' => array( 'data' => array() ),
+        'template'  => "templates/presentation"
+    );
+
+    $hooks[ 'dsusers_desafios_block' ] = array(
+        'variables' => array( 'data' => array() ),
+        'template'  => "templates/desafios"
+    );
+
+    return $hooks;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function dsusers_block_info()
+{
+    $blocks[ 'dsusers_logged_block' ] = array(
+        'info' => 'Información usuario logueado',
+    );
+    $blocks[ 'dsusers_presentation_block' ] = array(
+        'info' => 'Presentación asociada al segmento y mecánica del usuario.',
+    );
+    $blocks[ 'dsusers_desafios_block' ] = array(
+        'info' => 'Desafíos del usuario',
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function dsusers_block_view( $delta = '' )
+{
+    $block = array();
+    switch ( $delta )
+    {
+        case 'dsusers_logged_block':
+            $block[ 'content' ] = theme( 'dsusers_logged_block', array( 'data' => dsusers_logged_block() ) );
+            break;
+        case 'dsusers_presentation_block':
+            $block[ 'content' ] = theme( 'dsusers_presentation_block', array( 'data' => dsusers_presentation_block() ) );
+            break;
+        case 'dsusers_desafios_block':
+            $block[ 'content' ] = theme( 'dsusers_desafios_block', array( 'data' => dsusers_desafios_block() ) );
+            break;
+    }
+
+    return $block; 
+}
+  
+function dsusers_desafios_block()
+{
+    drupal_add_js( "https://code.highcharts.com/highcharts.js", 'external' );
+    global $user;
+    $datos = array();
+    //$meses = array( "2015-11","2015-10","2015-09","2015-08","2015-07","2015-06","2015-05","2015-04", "2015-03" );
+    $meses = array( '2016-05', '2016-04', '2016-03' );
+
+    //$datos[ 'mes' ] = "2015-04";
+    if ( isset( $_REQUEST[ 'mes' ] ) ) $datos[ 'mes' ] = htmlentities($_REQUEST[ "mes" ]);
+    $datos[ "estrellas" ] = 0;
+    $datos[ "desafios" ] = array();
+    $datos[ "distribuidores" ] = array();
+    $datos[ "did" ] = 0;
+    if ( isset( $_REQUEST[ 'did' ] ) ) $datos[ 'did' ] = htmlentities($_REQUEST[ "did" ]);
+    if ( isset( $_REQUEST[ "cedula" ] ) && $_REQUEST[ "cedula" ] != "" )
+    {
+        $us = user_load_by_name( trim( htmlentities($_GET[ "cedula" ]) ) );
+    } else
+    {
+        $us = user_load( $user->uid );
+    }
+
+    if ( $us->uid != 0 )
+    {
+        $ciudad = taxonomy_term_load( $us->field_ciudad[ 'und' ][ 0 ][ 'tid' ] );
+        $datos[ 'ciudad' ] = $ciudad->name;
+        foreach($meses as $mes){
+            $user_data = get_user_data( $us->uid, $mes );
+            $datos['meses'][] = $mes;
+            if(count($user_data[ "desafios" ])>0){
+                if(!isset($datos['mes']))$datos['mes'] = $mes;
+                if(!isset($datos["cuotas"])){
+                    date_default_timezone_set("America/Bogota");
+                    $nombre_mes = array("03"=>"Marzo","04"=>"Abril","05"=>"Mayo","06"=>"Junio","07"=>"Julio",
+                                        "08"=>"Agosto","09"=>"Septiembre","10"=>"Octubre","11"=>"Noviembre","12"=>"Diciembre");
+                    $datos["cuotas"]["titulo"] = "Cuotas para " . $nombre_mes[date("m",strtotime($mes))];
+                    $datos["cuotas"]["datos"] = array_merge($user_data[ "desafios" ]["individual"], $user_data[ "desafios" ]["grupal"]);
+                }
+                $datos[ "liquidaciones" ][$mes]['desafios'] = $user_data[ "desafios" ];
+                $datos[ "liquidaciones" ][$mes]['estrellas'] = $user_data[ "estrellas" ];
+                $datos["estrellas"] += $user_data[ "estrellas" ];
+            }
+        }
+
+        $datos[ 'nombre' ] = $us->field_nombres[ 'und' ][ 0 ][ 'value' ] . ' ' . $us->field_apellidos[ 'und' ][ 0 ][ 'value' ];
+        $datos[ 'uid' ] = $us->uid;
+        $datos[ 'cedula' ] = $us->name;
+        $query = new EntityFieldQuery();
+        $result = $query->entityCondition( 'entity_type', 'node' )
+            ->entityCondition( 'bundle', 'presentacion' )
+            ->propertyCondition( 'status', 1 )
+            ->fieldCondition( 'field_mecanica', 'tid', $us->field_mecanica['und'][0]['tid'] )
+            ->execute();
+        if ( isset( $result[ 'node' ] ) )
+        {
+            $nids = array_keys( $result[ 'node' ] );
+            $presentaciones = entity_load( "node", $nids );
+            $datos["presentacion"] = $presentaciones[ $nids[ 0 ] ];
+        }
+
+        if ( isset( $us->field_perfil[ 'und' ] ) )
+        {
+            $perfil = taxonomy_term_load( $us->field_perfil[ 'und' ][ 0 ][ 'tid' ] );
+            $datos[ 'perfil' ] = $perfil->name;
+        } else
+        {
+            $datos[ 'perfil' ] = "Sin Perfil";
+        }
+        if ( $datos[ 'perfil' ] == "Jefe de Ventas" || $datos[ 'perfil' ] == "Consultor" )
+        {
+            $query_users = new EntityFieldQuery();
+            if ( $datos[ 'perfil' ] == "Jefe de Ventas" )
+            {
+                $result_users = $query_users->entityCondition( 'entity_type', 'user' )
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition( 'field_jefe', 'target_id', $us->uid, '=' )
+                    ->fieldOrderBy( 'field_distribuidor', 'tid', 'ASC' )
+                    ->execute();
+            } else if ( $datos[ 'perfil' ] == "Consultor" )
+            {
+                $result_users = $query_users->entityCondition( 'entity_type', 'user' )
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition( 'field_consultores', 'target_id', $us->uid, '=' )
+                    ->fieldOrderBy( 'field_distribuidor', 'tid', 'ASC' )
+                    ->fieldOrderBy( 'field_perfil', 'tid', 'DESC' )
+                    ->execute();
+            }
+            $users = user_load_multiple( array_keys( $result_users[ 'user' ] ) );
+            $datos[ "vendedores" ] = array();
+            foreach ( $users as $vendedor )
+            {
+                if ( isset( $vendedor->field_perfil[ 'und' ] ) )
+                {
+                    $vendedor_perfil = taxonomy_term_load( $vendedor->field_perfil[ 'und' ][ 0 ][ 'tid' ] );
+                    $perfil_name = $vendedor_perfil->name;
+                } else
+                {
+                    $perfil_name = "Vendedor";
+                }
+
+                if ( isset( $vendedor->field_distribuidor[ 'und' ] ) )
+                {
+                    $vendedor_dist = taxonomy_term_load( $vendedor->field_distribuidor[ 'und' ][ 0 ][ 'tid' ] );
+                    $dist_name = $vendedor_dist->name;
+                    $datos[ "distribuidores" ][ $vendedor->field_distribuidor[ 'und' ][ 0 ][ 'tid' ] ] = $vendedor_dist->name;
+                    $presentacion = false;
+                    if(isset($vendedor_dist->field_mecanica['und'][0]['tid'])){
+                        $query = new EntityFieldQuery();
+                        $result = $query->entityCondition( 'entity_type', 'node' )
+                            ->entityCondition( 'bundle', 'presentacion' )
+                            ->propertyCondition( 'status', 1 )
+                            ->fieldCondition( 'field_mecanica', 'tid', $vendedor_dist->field_mecanica['und'][0]['tid'] )
+                            ->execute();
+                        if ( isset( $result[ 'node' ] ) )
+                        {
+                            $nids = array_keys( $result[ 'node' ] );
+                            $presentaciones = entity_load( "node", $nids );
+                            $presentacion = $presentaciones[ $nids[ 0 ] ];
+                        }
+                    }
+                    $datos['presentaciones'][$vendedor->field_distribuidor[ 'und' ][ 0 ][ 'tid' ]] = $presentacion;
+                    if($datos["did"]==0)$datos["did"] = $vendedor->field_distribuidor[ 'und' ][ 0 ][ 'tid' ];
+                } else
+                {
+                    $dist_name = "Vendedor";
+                    $datos[ "distribuidores" ][ 0 ] = "Vendedor";
+                }
+                if($datos[ 'mes' ] == "Todos"){
+                 $user_data = get_user_data_full_month($vendedor->uid);
+                }else{
+                $user_data = get_user_data( $vendedor->uid, $datos[ 'mes' ] );
+                }
+                $datos[ "vendedores" ][ ] = array(
+                    "nombre"       => $vendedor->field_nombres[ 'und' ][ 0 ][ 'value' ] . ' ' . $vendedor->field_apellidos[ 'und' ][ 0 ][ 'value' ],
+                    "cedula"       => $vendedor->name,
+                    "estrellas"    => $user_data[ "estrellas" ],
+                    "desafios"     => $user_data[ "desafios" ],
+                    "perfil"       => $perfil_name,
+                    "distribuidor" => $dist_name
+                );
+            }
+        }
+        //$user_data = get_user_data( $us->uid, $datos[ 'mes' ] );
+        //$datos[ "desafios" ] = $user_data[ "desafios" ];
+        //$datos[ "estrellas" ] = $user_data[ "estrellas" ];
+    }
+    
+    return $datos;
+}
+
+function get_user_data( $user_id, $month = "2016-03" )
+{
+    $datos = array( "desafios" => array(), "estrellas" => 0 );
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition( 'entity_type', 'node' )
+        ->entityCondition( 'bundle', 'liquidacion' )
+        ->propertyCondition( 'status', 1 )
+        ->propertyCondition( 'uid', $user_id )
+        ->fieldCondition( 'field_mes', 'value', $month . "-01 00:00:00", '=' )
+        ->execute();
+    if ( isset( $result[ 'node' ] ) )
+    {
+        $nids = array_keys( $result[ 'node' ] );
+        $liquidaciones = entity_load( "node", $nids );
+        foreach ( $liquidaciones as $nid => $liquidacion )
+        {
+            $row = array();
+            $row[ "mes" ] = date( "Y-m", strtotime( $liquidacion->field_mes[ 'und' ][ 0 ][ 'value' ] ) );
+            $row[ "mes_original" ] = $liquidacion->field_mes[ 'und' ][ 0 ][ 'value' ];
+            $desafio = node_load( $liquidacion->field_desafio[ "und" ][ 0 ][ 'target_id' ] );
+            //if ( $liquidacion->field_estrellas[ "und" ][ 0 ][ "value" ] == 0
+            //    && $liquidacion->field_cumplimiento[ "und" ][ 0 ][ "value" ] == 0
+            //    && $liquidacion->field_presupuesto[ "und" ][ 0 ][ "value" ] == 0
+            //    && $liquidacion->field_venta[ "und" ][ 0 ][ "value" ] == 0
+            //    && $liquidacion->field_unidades[ "und" ][ 0 ][ "value" ] == 0
+            //) continue;
+            if(trim($liquidacion->field_unidades[ "und" ][ 0 ][ "value" ]) == "Eliminar"){
+                node_delete($liquidacion->nid);
+                continue;
+            }
+            $row[ "nombre" ] = $desafio->title;
+            $row[ "descripcion" ] = "";//$desafio->body['und'][0]['value'],
+            if(isset($liquidacion->field_notas[ 'und' ][ 0 ][ 'value' ]) && $liquidacion->field_notas[ 'und' ][ 0 ][ 'value' ] != "")
+                $row["descripcion"] = $liquidacion->field_notas[ 'und' ][ 0 ][ 'value' ];
+            $row[ "mostrar" ] = $desafio->field_mostrar_presupuesto[ "und" ][ 0 ][ "value" ];
+            $row[ "estrellas" ] = $liquidacion->field_estrellas[ "und" ][ 0 ][ "value" ];
+            $row[ "cumplimiento" ] = $liquidacion->field_cumplimiento[ "und" ][ 0 ][ "value" ];
+            $row[ "presupuesto" ] = $liquidacion->field_presupuesto[ "und" ][ 0 ][ "value" ];
+            $row[ "valor" ] = $liquidacion->field_venta[ "und" ][ 0 ][ "value" ];
+            $row[ "unidades" ] = $liquidacion->field_unidades[ "und" ][ 0 ][ "value" ];
+
+            $datos[ "desafios" ][ $desafio->field_tipodesafio[ "und" ][ 0 ][ "value" ] ][ $desafio->nid ] = $row;
+            $datos[ "estrellas" ] += $liquidacion->field_estrellas[ "und" ][ 0 ][ "value" ];
+        }
+    }
+
+    return $datos;
+}
+
+function get_user_data_full_month($user_id)
+{
+    $datos = array( "desafios" => array(), "estrellas" => 0 );
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition( 'entity_type', 'node' )
+        ->entityCondition( 'bundle', 'liquidacion' )
+        ->propertyCondition( 'status', 1 )
+        ->propertyCondition( 'uid', $user_id )
+        ->propertyOrderBy('title', 'ASC')
+        ->execute();
+    if ( isset( $result[ 'node' ] ) )
+    {
+        $nids = array_keys( $result[ 'node' ] );
+        $liquidaciones = entity_load( "node", $nids );
+        foreach ( $liquidaciones as $nid => $liquidacion )
+        {   $row = array();
+            $row[ "mes" ] = date( "Y-m", strtotime( $liquidacion->field_mes[ 'und' ][ 0 ][ 'value' ] ) );
+            //$row[ "mes_original" ] = $liquidacion->field_mes[ 'und' ][ 0 ][ 'value' ];
+            $desafio = node_load( $liquidacion->field_desafio[ "und" ][ 0 ][ 'target_id' ] );
+            if(trim($liquidacion->field_unidades[ "und" ][ 0 ][ "value" ]) == "Eliminar"){
+                node_delete($liquidacion->nid);
+                continue;
+            }
+            $row[ "nombre" ] = $desafio->title;
+            if( $desafio->field_mostrar_presupuesto[ "und" ][ 0 ][ "value" ] == 'Si' )
+                $row[ "mostrar" ] = $desafio->field_mostrar_presupuesto[ "und" ][ 0 ][ "value" ];
+            
+            if( $liquidacion->field_estrellas[ "und" ][ 0 ][ "value" ] != 0 )
+                $row[ "estrellas" ] = $liquidacion->field_estrellas[ "und" ][ 0 ][ "value" ];
+            if($liquidacion->field_cumplimiento[ "und" ][ 0 ][ "value" ] != 0.00 )
+                $row[ "cumplimiento" ] = $liquidacion->field_cumplimiento[ "und" ][ 0 ][ "value" ];
+            //$row[ "presupuesto" ] = $liquidacion->field_presupuesto[ "und" ][ 0 ][ "value" ];
+            
+            if( $liquidacion->field_venta[ "und" ][ 0 ][ "value" ] != 0 )
+                $row[ "valor" ] = $liquidacion->field_venta[ "und" ][ 0 ][ "value" ];
+            
+            if($liquidacion->field_unidades[ "und" ][ 0 ][ "value" ] != "" || $liquidacion->field_unidades[ "und" ][ 0 ][ "value" ] != "")
+                $row[ "unidades" ] = $liquidacion->field_unidades[ "und" ][ 0 ][ "value" ];
+
+            $datos[ "desafios" ][ $desafio->field_tipodesafio[ "und" ][ 0 ][ "value" ] ][ $nid ] = $row;
+            $datos[ "estrellas" ] += $liquidacion->field_estrellas[ "und" ][ 0 ][ "value" ];
+        }
+    }
+    return $datos;
+}
+
+
+/**
+ * @return array
+ */
+function dsusers_logged_block()
+{
+    global $user;
+    $datos = '';
+    $us = user_load( $user->uid );
+    if ( $us->uid != 0 )
+    {
+        $datos[ 'nombre' ] = $us->field_nombres[ 'und' ][ 0 ][ 'value' ];
+        $datos[ 'uid' ] = $us->uid;
+    }
+
+    return $datos;
+}
+
+
+/**
+ * @return array
+ */
+function dsusers_presentation_block()
+{
+    global $user;
+    $datos = array();
+    $us = user_load( $user->uid );
+    if ( $us->uid != 0 )
+    {
+        $datos[ 'uid' ] = $us->uid;
+        if ( isset( $us->field_mecanica ) && isset( $us->field_mecanica[ 'und' ] ) )
+        {
+            $datos[ 'mecanica' ] = $us->field_mecanica[ 'und' ][ 0 ][ 'tid' ];
+        }
+        else
+        {
+            $datos[ 'mecanica' ] = 0;
+        $query = new EntityFieldQuery();
+        $result = $query->entityCondition( 'entity_type', 'node' )
+            ->entityCondition( 'bundle', 'presentacion' )
+            ->propertyCondition( 'status', 1 )
+            ->fieldCondition( 'field_mecanica', 'tid', $datos[ 'mecanica' ] )
+            ->execute();
+        }
+        if ( isset( $result[ 'node' ] ) )
+        {
+            $nids = array_keys( $result[ 'node' ] );
+            $presentaciones = entity_load( "node", $nids );
+            $datos[ 'presentacion' ] = $presentaciones[ $nids[ 0 ] ];
+        }
+
+    }
+    dpm($datos);
+    return $datos;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function dsusers_form_alter( &$form, &$form_state, $form_id )
+{
+    switch ( $form_id )
+    {
+        case 'user_login_block':
+            $form[ 'name' ][ '#attributes' ][ 'placeholder' ] = 'Usuario';
+            $form[ 'pass' ][ '#attributes' ][ 'placeholder' ] = 'Contraseña';
+            $form[ 'actions' ][ 'submit' ][ '#value' ] = "Entrar";
+            break;
+        default:
+            # code...
+            break;
+    }
+}

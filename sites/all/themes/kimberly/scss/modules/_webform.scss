@@ -1,0 +1,130 @@
+.webform-client-form,
+.webform-confirmation{
+  padding: 20px;
+  background: white;
+  color: $text-darkgray;
+  p{
+    color: $text-darkgray;
+  }
+  .webform-submit{
+    color: #ffffff;
+    background-color: #008CBA;
+    padding: 10px;
+  }
+  #edit-submitted-ingresa-tu-codigo{
+    width: auto;
+    display: inline;
+  }
+  .webform-component--ingresa-tu-codigo{
+    label{
+      font-size: 1.7rem;
+    }
+  }
+}
+.not-logged-in.section-dia-del-padre {
+  .node-webform{
+    display: none;
+  }
+}
+
+ .page-node-111542{
+
+   .webform-confirmation{
+    background: url('../images/backgrounds/KCP---Día-del-Vendedor---Banner-784x450px (1).jpg') no-repeat;
+    background-size: 68%;
+    width: 100%;
+    height: 309px;
+    background-position: 50%;
+    p{
+      display: none;
+    }
+   }
+   .links{
+    text-align:center;
+    margin-top: 15px;
+   }
+      form{
+      background-color: rgba(255, 255, 255, 0);
+        div{
+          background-color:rgba(21, 125, 185, 0);
+          text-align: center;
+          .form-item{
+            input{
+            border-radius: 52px;
+            width: 50%;
+            margin: 0 auto;
+            }
+            label{
+                 background: url('../images/backgrounds/KCP---Día-del-Vendedor---Banner-784x450px.jpg') no-repeat;
+                  background-size: 49%;
+                  width: 100%;
+                  height: 309px;
+                  background-position: 50%;
+                  color: #000;
+                  margin-bottom: 32px;
+                  font-size: 20px;
+                  span{
+                    display: none;
+                  }
+                  
+                }
+                .descriptcion,.description{
+                    display: none;
+                  }  
+
+            button{
+              color: #ffffff;
+              background: #c22b37;
+              border-bottom: 3px solid #8A1D26;
+            }
+
+          }
+        }
+      }
+    .reveal-modal{
+      z-index: 1005;
+      background-image: url("../images/backgrounds/Kimberly_diaVendedor_textura.png");
+      background-size: 100%;
+      .edit-submitted-aqui-debe-ir-la-pregunta{
+            background: url('../images/backgrounds/KCP---Día-del-Vendedor---Banner-784x450px.jpg') no-repeat;
+    background-size: 49%;
+    width: 100%;
+    height: 309px;
+    background-position: 50%;
+    color: #000;
+    margin-bottom: 32px;
+      }
+      p{
+        text-align: center;
+      }
+      h2{text-align:center;}
+      form{
+     background-color: rgba(255, 255, 255, 0);
+        div{
+          background-color:rgba(21, 125, 185, 0);
+          text-align:center;
+          .form-item{
+            input{
+             border-radius: 52px;
+            width: 50%;
+            margin: 0 auto;
+            }
+            label{
+                  font-size: 20px;
+                  color: #fff;
+                  .descriptcion{
+                    display: none;
+                  }
+                }
+            button{
+              color: #ffffff;
+              background: #c22b37;
+              border-bottom: 3px solid #8A1D26;
+            }
+
+          }
+        }
+      }
+
+    }
+ }

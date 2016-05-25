@@ -1,0 +1,41 @@
+.block-superfish{
+  &.block-superfish-1{
+    //position: absolute;
+    text-align: center;
+    bottom: 0;
+    right: 0;
+    padding: 0;
+    border-bottom: 4px solid #bfbfbf;
+    line-height: 12px;
+  }
+  ul.menu{
+    font-family: $font-sansalight;
+    font-size: 2em;
+    display: inline-block;
+    
+    li{
+      a{
+        color: #ffffff;
+        padding: 15px;
+        text-transform: uppercase;
+        &.active,
+        &:hover{
+          background: #4d4d4d;
+          color: white;
+        }
+        &:hover{
+          background: darken( #4d4d4d, 10% );
+          text-decoration: none;
+        }
+      }
+      &.active-trail{
+        a{
+          color: white;
+          background: #4d4d4d;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+ul.breadcrumbs{
+  border: none;
+  background: none;
+  color: #ffffff;
+  margin: 10px 0;
+  li{
+    text-transform: none;
+    &.current{
+      a{
+        color: #ffffff;
+      }
+    }
+    a{
+      font-family: $font-sansalight;
+      color: $text-gray;
+      font-size: 0.9rem;
+    }
+  }
+}

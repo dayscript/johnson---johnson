@@ -1,0 +1,86 @@
+// Non-modular or client styles for the .l-content region.
+#first-time{
+  display: none;
+}
+.main{
+  padding-left: 0;
+  padding-right: 0;
+
+}
+body{
+background: url("../images/backgrounds/fondo.jpg") center 0px repeat-x; 
+background-color: #000;
+}
+p{
+  font-family: $font-sans;
+  font-size: 0.82rem;
+  color: #ffffff;
+}
+.views-field-body{
+  a{
+    color: #008CBA!important;
+  }
+}
+.body{
+
+  a{
+    color: #008CBA!important;
+  } 
+}
+
+a{
+  color: #ffffff;
+  &:hover{
+    text-decoration: underline;
+    color: #ffffff;
+  }
+}
+input[type="text"],
+input[type="password"]{
+  text-align: center;
+  font-family: $font-sansalight;
+}
+button.secondary,
+.button.secondary{
+  color: #ffffff;
+  &:hover{
+    color: #ffffff;
+    background: lighten( $darkred, 10% );
+  }
+}
+h1#page-title{
+  font-family: $font-sansalight;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+ul.button-group{
+  position: absolute;
+  left: -110px;
+  li{
+    margin: 3px;
+    text-align: right;
+    display: block;
+    height: 30px;
+    a.button{
+      background: $darkred;
+      border: none;
+      padding: 5px;
+      width: 100px;
+    }
+  }
+}
+.page-user{
+  ul.button-group{
+    position: relative;
+    left: auto;
+    li{
+      display: inline-block;
+    }
+  }
+}
+@media only screen and (max-width: 40em) {
+  #admin-menu{
+    display: none;
+  }
+} /* max-width 640px, mobile-only styles, use when QAing mobile issues */

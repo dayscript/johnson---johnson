@@ -1,0 +1,118 @@
+.more-link{
+  a{
+    font-family: $font-sansanormal;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 10px 0 0 30px;
+    display: inline-block;
+    background: url("../images/icons/star.png") left 7px no-repeat;
+  }
+}
+[class*="column"]+[class*="column"]:last-child{
+float: left;
+}
+
+
+.views-field-body{
+  .field-content{
+    p{
+      a{
+        color: #008CBA;
+      }
+    }
+  }
+}
+.page-reporte-encuesta-completo{
+  .main-wrapper{
+    .l-main{
+      .main{
+        .view-id-reporte_de_encuesta{
+          .view-content{
+            display: inline-block;
+          }
+          li.views-row{
+              display: block;
+              //border: solid #fff 1px;
+              //float: left;
+            div{
+              color:#fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.front{
+  .view-universidad,.view-noticias{
+    .views-field.views-field-title{
+      min-height: inherit!important;
+    }
+    .view-content{
+      .views-row {
+        margin: 0;
+      }
+    }
+  }
+  .attachment .view-noticias,.attachment .view-universidad{
+    .views-field.views-field-title{
+      padding: 0;
+      height: auto;
+      min-height: inherit!important;
+    }
+    .view-content{
+      background: #fff;
+      .views-row-1{
+        margin:0;
+      }
+      a.link{
+        color:#008CBA;
+        text-transform: capitalize;
+      }
+      .views-row{
+        padding: 6px 12px;
+      }
+      .views-field.views-field-title{
+        padding: 0;
+        height: auto;
+        min-height: inherit!important;
+      }
+    }
+    .view-header{
+      .toogle-innovacion {
+        background-image: url('../images/icons/flecha_abajo.png');
+        background-repeat: no-repeat;
+        background-position: 97%;
+        background-size: 21px;
+      }
+      .toogle-catalogo{
+        background-image: url('../images/icons/flecha_abajo.png');
+        background-repeat: no-repeat;
+        background-position: 97%;
+        background-size: 21px;
+      }
+    }
+    .toogle-catalogo{
+      color: #fff;
+      background: #525252;
+      font-size: 15px;
+      text-transform: uppercase;
+      padding: 1px 10px;
+      &:after{
+        content:"";
+        text-align: right;
+      }
+    }
+    .toogle-innovacion{
+      color: #fff;
+      background: #525252;
+      font-size: 15px;
+      text-transform: uppercase;
+      padding: 1px 10px;
+      &:after{
+        content:"";
+      }
+    }
+  }
+}

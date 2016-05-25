@@ -1,0 +1,44 @@
+.section-actualizacion-datos{
+    
+    .clearfix {
+        div.form-wrapper {
+            width: 50%;
+            float: left;
+            padding: 0px 32px;
+
+        }
+        div.field-name-field-fecha-de-nacimiento {
+           width: 100%;
+        }
+    }
+
+    .form-actions{
+        width: 14%;
+        margin: 0 auto;
+    }
+    .form-actions {
+        button#edit-submit {
+            background-color: #008CBA;
+        }
+    }    
+    div.reveal-modal-bg{
+        z-index: 996;
+    }
+}
+.section-terminos-y-condiciones{
+    section.reveal-modal{
+        z-index: 1004;
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+    }
+    p{
+        color: #999;
+    }
+    a{
+        color: #008CBA 
+    }
+    div{
+        text-align:center;
+    }
+}

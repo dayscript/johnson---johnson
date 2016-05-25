@@ -1,0 +1,5 @@
+name = Usuarios
+description = Funcionalidades para los usuarios.
+package = Dayscript
+core = 7.x
+version = 7.x - 1.0

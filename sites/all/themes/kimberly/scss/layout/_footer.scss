@@ -1,0 +1,19 @@
+// Non-modular or client styles for .l-footer region.
+.footer-wrapper{
+  margin-top: 15px;
+  color: white;
+  background-color: #000;
+  .panel{
+    background:none;
+    border: none;
+    p{
+      color: white;
+      font-family: $font-sans;
+      font-size: 0.7rem;
+    }
+  }
+  h2.block-title{
+    font-size: 1.1rem;
+    text-transform: uppercase;
+  }
+}

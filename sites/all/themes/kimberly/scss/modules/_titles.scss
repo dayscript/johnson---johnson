@@ -1,0 +1,20 @@
+.header_noticias,
+.header_desafios,
+.header_entretenimiento,
+.header_universidad{
+  background: url("../images/headers/title-header.jpg") left center repeat;
+  padding: 27px 25px; 
+  p{
+    font-size: 2rem;
+    font-family: $font-sansalight;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  margin-bottom: 15px;
+}
+.header_entretenimiento{
+  background: url("../images/headers/title-header.jpg") left center repeat;
+}
+.header_universidad{
+  background: url("../images/headers/title-header.jpg") left center repeat;
+}
