@@ -1,7 +1,7 @@
 <?php
 
     
-  function kimberly_poll_block_info() {
+  function johnson_poll_block_info() {
 
     $blocks = array();
 
@@ -14,14 +14,14 @@
 
   }
 
-  function kimberly_poll_block_view( $delta = '' ) {
+  function johnson_poll_block_view( $delta = '' ) {
 
     $blocks = array();
 
     if ( $delta == 'questions_form' ) {
       $blocks['subject'] = t('Encuesta kimberly');
       $blocks['content'] = theme( 'callback_questions', array(
-              'questionsForm' => kimberly_poll_load_questions()
+              'questionsForm' => johnson_poll_load_questions()
           )
       );
     }
@@ -31,7 +31,7 @@
   }
 
 
-  function kimberly_poll_theme( $existing, $type, $theme, $path ) {
+  function johnson_poll_theme( $existing, $type, $theme, $path ) {
       return array( 'callback_questions' => array( 'vars' => array('questionsForm' => NULL) ) );
   }
 
@@ -47,7 +47,7 @@
         ->execute()
         ->fetchAll();
 
-    $output = drupal_render( drupal_get_form( 'kimberly_poll_quest_form', $vars['questionsForm'] ) );
+    $output = drupal_render( drupal_get_form( 'johnson_poll_quest_form', $vars['questionsForm'] ) );
 
     if ( count($query) > 0 ){
 
@@ -82,7 +82,7 @@
   }
 
 
-  function kimberly_poll_load_questions() {
+  function johnson_poll_load_questions() {
 
     $questionsQuery  = new EntityFieldQuery();
 
@@ -96,14 +96,14 @@
   }
 
 
-  function kimberly_poll_quest_form( $form, &$form_states, $idQuestionsForm ) {
+  function johnson_poll_quest_form( $form, &$form_states, $idQuestionsForm ) {
 
     for ( $i=0; $i<count($idQuestionsForm); $i++ ) {
 
       $questionForm = node_load( $idQuestionsForm[$i] );
 
       $form['question_' . ($i+1)] = array(
-          '#options' => kimberly_poll_options_load( $questionForm->body['und'][0]['safe_value'] ),
+          '#options' => johnson_poll_options_load( $questionForm->body['und'][0]['safe_value'] ),
           '#prefix'   => '<div class="question content-question-' . ($i + 1) . '">',
           '#required' => TRUE,
           '#suffix'   => '</div>',
@@ -129,14 +129,14 @@
 
   }
 
-  function kimberly_poll_quest_form_submit( $form, &$form_states ) {
+  function johnson_poll_quest_form_submit( $form, &$form_states ) {
 
     global $user;
 
     $points    = 0;
     $commands  = array();
     $values    = $form_states['values'];
-    $questions = kimberly_poll_load_questions();
+    $questions = johnson_poll_load_questions();
     $default   = array(
         'type'    => 'user_answers',
         'uid'     => $user->uid,
@@ -179,7 +179,7 @@
   }
     
 
-  function kimberly_poll_options_load( $options ) {
+  function johnson_poll_options_load( $options ) {
 
     $options = explode( ';', $options );
     $keys    = array( 'a', 'b', 'c', 'd' );

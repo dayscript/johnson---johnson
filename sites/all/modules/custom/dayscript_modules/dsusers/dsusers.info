@@ -1,4 +1,4 @@
-name = Usuarios
+name = Desafios y liquidaciones de usuarios
 description = Funcionalidades para los usuarios.
 package = Dayscript
 core = 7.x

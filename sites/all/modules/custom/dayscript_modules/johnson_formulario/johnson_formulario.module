@@ -1,0 +1,46 @@
+<?php 
+
+
+// Implements hook_menu()
+function johnson_formulario_menu() {
+  $items = array();
+  $items['formulario/actualizacion_datos'] = array(
+    'title' => 'Form Tutorial',
+    'page callback' => 'johnson_formulario_drupal_get_form',
+    'page arguments' => array('johnson_formulario_form_user'),
+    'access callback' => TRUE,
+    'description' => 'A set of ten tutorials',
+    'file' => 'johnson_formulario_form.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+
+function johnson_formulario_block_info() {
+  $blocks['johnson_formulario'] = array(
+    'info' => t('johnson_formulario'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+} 
+/**
+ * Implements hook_block_view().
+ */
+function johnson_formulario_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'johnson_formulario':
+      module_load_include('inc', 'johnson_formulario', 'johnson_formulario_form');
+      $block['subject'] = t('Actualizacion de datos');
+      $block['content'] = johnson_formulario_drupal_get_form();
+      break;
+  }
+  return $block;
+}
+

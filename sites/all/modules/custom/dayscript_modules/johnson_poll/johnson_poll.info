@@ -1,4 +1,4 @@
-name = Kimberly poll
+name = Jhonson poll
 description = Create form to show the questions
 core = 7.x
-package = Kimberly
+package = Dayscript

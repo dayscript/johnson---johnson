@@ -1,7 +1,7 @@
-name = Kimberly Formulario
+name = Johnson Formulario
 description = formulario actualizacion de datos
 package = Dayscript
 core = "7.x"
 version = "7.x"
 
-files[] = kimberly_formulario_form.inc
+files[] = johnson_formulario_form.inc

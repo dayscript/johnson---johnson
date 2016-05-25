@@ -4,7 +4,7 @@
  * Validation of the phone, name and apellidos.
  *
  */
-function kimberly_formulario_validate($element, &$form_state) {
+function johnson_formulario_validate($element, &$form_state) {
   foreach ($form_state['values'] as $key => $value) {
     switch ($key) {
       case 'field_nombres':
@@ -41,7 +41,7 @@ function kimberly_formulario_validate($element, &$form_state) {
 }
 
 
-function kimberly_formulario_drupal_get_form(){
+function johnson_formulario_drupal_get_form(){
  
  // drupal_flush_all_caches();
   registry_rebuild();
@@ -57,7 +57,7 @@ function submit_button(){
 }
 
 
-function  kimberly_formulario_form_user_profile_form_alter(&$form, &$form_state, $form_id){
+function  johnson_formulario_form_user_profile_form_alter(&$form, &$form_state, $form_id){
   $url = arg();
   $path = drupal_get_path_alias($url[0].'/'.$url[1]);
   if($path == 'actualizacion-datos'){
@@ -76,7 +76,7 @@ function  kimberly_formulario_form_user_profile_form_alter(&$form, &$form_state,
   $form['field_jefe']['#access'] = FALSE;
   $form['field_consultores']['#access'] = FALSE;
   $form['field_gerente']['#access'] = FALSE;
-  $form['#validate'][] =  'kimberly_formulario_validate';
+  $form['#validate'][] =  'johnson_formulario_validate';
   $form['#submit'][] = submit_button;
 } 
 }
