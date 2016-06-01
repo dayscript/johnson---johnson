@@ -1,0 +1,7 @@
+name = dsLoginSayreward
+description = Agrega funcionalidades que permitan el logn en Sayreward
+package = Dayscript
+core = 7.x
+version = 7.x - 1.0
+files[] = includes/dsLoginSayreward.inc
+

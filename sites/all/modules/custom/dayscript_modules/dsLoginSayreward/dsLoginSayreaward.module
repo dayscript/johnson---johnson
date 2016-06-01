@@ -1,0 +1,25 @@
+<?php
+
+function dsLoginSayreaward_block_info(){
+	$blocks['LoginSayreaward'] = array(
+		'info' => t('Login SayReaward');
+		);
+	return $blocks;
+}
+
+function dsLoginSayreaward_block_view($delta = ''){
+	$block = array();
+
+	switch ($delta) {
+		case 'LoginSayreaward':
+			$block['content'] = _LoginSayreaward(); 
+			break;
+	}
+	return $block;
+}
+
+function _LoginSayreaward(){
+
+
+	return 'Ir a Sayreaword';
+}

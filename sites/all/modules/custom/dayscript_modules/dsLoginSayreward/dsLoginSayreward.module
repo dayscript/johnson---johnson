@@ -1,0 +1,52 @@
+<?php
+
+include 'includes/dsLoginSayreward.inc';
+
+function dsLoginSayreward_block_info(){
+	$blocks['LoginSayreward'] = array(
+		'info' => t('Login SayReward')
+		);
+	return $blocks;
+}
+
+function dsLoginSayreward_block_view($delta = ''){
+	$block = array();
+	switch ($delta) {
+		case 'LoginSayreward':
+			$path = drupal_get_path('module','dsLoginSayreward').'/src/css/dsLoginSayreward.css';
+			$block['content'] = array(
+							 		'#markup'=>_LoginSayreward(), 
+									'#attached'=>array(
+				     					 			'css' => array(drupal_add_css( $path, $type = 'module', $media = 'all', $preprocess = TRUE)),
+				      								//'js' => array(drupal_add_js( $path ),
+  												)
+									);
+			break;
+	}
+	return $block;
+}
+
+function _LoginSayreward(){
+	global $user;
+	$encryptionKey = 'SdxCrypt5S0Key05'; // Should be defined together with the client 
+	$encryptionVector = 'SdxCrypt5S0Vec05'; // Should be defined together with the client
+	$date = time();
+	$ssoA = $user->name.' '.$date;
+	$logonidSalt = 'SdxCrypt5S0Sa105'.$user->name;
+	$md5encrypt = md5($logonidSalt);
+
+	// encryption 
+	$encrypted = Encrypt_Value($ssoA, $encryptionKey, $encryptionVector); 
+	$base64encoded = Urlsafe_Base64_Encode($encrypted); 
+	// decryption 
+	$base64decoded = Urlsafe_Base64_Decode($base64encoded); 
+	$decrypted = Decrypt_Value($base64decoded, $encryptionKey, $encryptionVector); 
+	dpm('ORIGINAL TEXT: '.$ssoA);
+	dpm('ENCRYPTED: '.$encrypted); 
+	dpm('BASE64ENCODED: '.$base64encoded); 
+	dpm('BASE64DECODED: '.$base64decoded); 
+	dpm('DECRYPTED: '.$decrypted); 
+	dpm('URL : http://expertosscj.sayreward.co/?ssoA='.$base64encoded.'&ssoL='.$md5encrypt.'&ssoDebug=1');
+	
+	return '<div class="loginSayreaword">Ir a Sayreaword</div>';
+}
