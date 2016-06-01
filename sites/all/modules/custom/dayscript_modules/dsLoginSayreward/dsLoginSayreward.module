@@ -41,12 +41,12 @@ function _LoginSayreward(){
 	// decryption 
 	$base64decoded = Urlsafe_Base64_Decode($base64encoded); 
 	$decrypted = Decrypt_Value($base64decoded, $encryptionKey, $encryptionVector); 
-	dpm('ORIGINAL TEXT: '.$ssoA);
+	/*dpm('ORIGINAL TEXT: '.$ssoA);
 	dpm('ENCRYPTED: '.$encrypted); 
 	dpm('BASE64ENCODED: '.$base64encoded); 
 	dpm('BASE64DECODED: '.$base64decoded); 
 	dpm('DECRYPTED: '.$decrypted); 
-	dpm('URL : http://expertosscj.sayreward.co/?ssoA='.$base64encoded.'&ssoL='.$md5encrypt.'&ssoDebug=1');
-	
-	return '<div class="loginSayreaword">Ir a Sayreaword</div>';
+	dpm('URL : http://expertosscj.sayreward.co/?ssoA='.$base64encoded.'&ssoL='.$md5encrypt.'&ssoDebug=1');*/
+	$url = 'http://expertosscj.sayreward.co/?ssoA='.$base64encoded.'&ssoL='.$md5encrypt.'&ssoDebug=1';
+	return '<div class="loginSayreaword"><a href="'.$url.'">Ir a Sayreaword</a></div>';
 }
