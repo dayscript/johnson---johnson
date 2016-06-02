@@ -1,0 +1,9 @@
+name = Webservice de login
+description = Permite hacer login desde Sayreward
+package = Dayscript
+core = 7.x
+version = 7.x - 1.0
+dependencies[] = services
+dependencies[] = rest_server
+
+

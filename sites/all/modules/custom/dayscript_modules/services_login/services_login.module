@@ -1,0 +1,45 @@
+ <?php
+
+	function services_login_menu() {
+
+		$items['service/authenticate/%token/$sessid/%sessionname/$timestamp'] = array(
+		  'page callback' => 'services_login',
+		  'page arguments' => array(1,2,3),
+		  'access callback'=> TRUE
+		);
+		return $items;
+	}
+	function services_login($token,$sessid,$sessionname,$timestamp) {
+		$action = 'encrypt';
+		$output = FALSE;
+		$encrypt_method = "AES-256-CBC";
+		$secret_key = 'KEY%OPS8S84R&%4D49IFDusytq87';
+    	$secret_iv  = 'IV%8sJDO47sIDPjkfhy8Skdoajdl';
+
+    	$key = hash('sha256', $secret_key);
+	    $iv = substr(hash('sha256', $secret_iv), 0, 16);
+   	
+      	$sessid = openssl_decrypt(base64_decode($sessid), $encrypt_method, $key, 0, $iv);
+      	$token = openssl_decrypt(base64_decode($token), $encrypt_method, $key, 0, $iv);
+      	$sessionname = openssl_decrypt(base64_decode($sessionname), $encrypt_method, $key, 0, $iv);
+       	if ( $_COOKIE[$sessionname] == ''){
+       		dpm($_COOKIE[$sessionname]);
+       		$query = db_query("SELECT * FROM { sessions } 
+							WHERE sid = :sid 
+							AND timestamp = :timestamp ", 
+							array(':sid'=>$sessid,'timestamp'=>$timestamp)
+							);
+       			
+       		$user_obj = user_load($query->fetchObject()->uid);
+       		if( $user_obj->uid ){
+       			$form_state = array();
+				$form_state['uid'] = $user_obj->uid;    
+				user_login_submit(array(), $form_state);
+				drupal_set_message(t('Ha iniciado sesion desde Sayreword'), 'status', FALSE);
+				return '';
+       		}
+			
+		}
+		drupal_set_message(t('No se puede iniciar sesion'), 'status', FALSE);
+       	return 'ok';
+  	}
