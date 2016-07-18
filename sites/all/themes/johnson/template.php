@@ -3,13 +3,13 @@
 /**
  * Implements template_preprocess_html().
  */
-function kimberly_preprocess_html(&$variables) {
+function johnson_preprocess_html(&$variables) {
 }
 
 /**
  * Implements template_preprocess_page.
  */
-function kimberly_preprocess_page(&$variables) {
+function johnson_preprocess_page(&$variables) {
     // Convenience variables.
     if (!empty($variables['page']['sidebar_first'])) {
         $left = $variables['page']['sidebar_first'];
@@ -20,8 +20,8 @@ function kimberly_preprocess_page(&$variables) {
     }
     // Dynamic sidebars.
     if (!empty($left) && !empty($right)) {
-        $variables['main_grid'] = 'medium-6 medium-push-5';
-        $variables['sidebar_first_grid'] = 'medium-5 medium-pull-6';
+        $variables['main_grid'] = 'medium-6 ';//medium-push-5
+        $variables['sidebar_first_grid'] = 'medium-5 ';//medium-pull-6
         $variables['sidebar_sec_grid'] = 'medium-5';
     }
     elseif (empty($left) && !empty($right)) {
@@ -30,9 +30,9 @@ function kimberly_preprocess_page(&$variables) {
         $variables['sidebar_sec_grid'] = 'medium-5';
     }
     elseif (!empty($left) && empty($right)) {
-        $variables['main_grid'] = 'medium-11 medium-push-5';
-        $variables['sidebar_first_grid'] = 'medium-5 medium-pull-11';
-        $variables['sidebar_sec_grid'] = '';
+        $variables['main_grid'] = 'medium-11 '; //medium-push-5
+        $variables['sidebar_first_grid'] = 'medium-5 ';//medium-pull-11
+        $variables['sidebar_sec_grid'] = ''; 
     }
     else {
         $variables['main_grid'] = '';
@@ -44,9 +44,9 @@ function kimberly_preprocess_page(&$variables) {
 /**
  * Implements template_preprocess_node.
  */
-function kimberly_preprocess_node(&$variables) {
+function johnson_preprocess_node(&$variables) {
 }
-function _kimberly_md_slider_md_slider_556f36688dfb4_block_visibility($block){
+function _johnson_md_slider_md_slider_556f36688dfb4_block_visibility($block){
     if(!drupal_is_front_page())return false;
     global $user;
     $user_profile = user_load( $user->uid );
@@ -68,7 +68,7 @@ function _kimberly_md_slider_md_slider_556f36688dfb4_block_visibility($block){
     return false;
 }
 
-function _kimberly_md_slider_slide_principal_block_visibility($block){
+function _johnson_md_slider_slide_principal_block_visibility($block){
     if(!drupal_is_front_page())return false;
     global $user;
     $user_profile = user_load( $user->uid );

@@ -2,13 +2,14 @@
 
 	function services_login_menu() {
 
-		$items['service/authenticate/%token/$sessid/%sessionname/$timestamp'] = array(
+		$items['service/authenticate/%/%/%/%'] = array(
 		  'page callback' => 'services_login',
-		  'page arguments' => array(1,2,3),
+		  'page arguments' => array(2,3,4,5),
 		  'access callback'=> TRUE
-		);
-		return $items;
+		);  
+		return $items; 
 	}
+
 	function services_login($token,$sessid,$sessionname,$timestamp) {
 		$action = 'encrypt';
 		$output = FALSE;
@@ -23,7 +24,7 @@
       	$token = openssl_decrypt(base64_decode($token), $encrypt_method, $key, 0, $iv);
       	$sessionname = openssl_decrypt(base64_decode($sessionname), $encrypt_method, $key, 0, $iv);
        	if ( $_COOKIE[$sessionname] == ''){
-       		dpm($_COOKIE[$sessionname]);
+       		//dpm($_COOKIE[$sessionname]);
        		$query = db_query("SELECT * FROM { sessions } 
 							WHERE sid = :sid 
 							AND timestamp = :timestamp ", 
@@ -36,8 +37,9 @@
 				$form_state['uid'] = $user_obj->uid;    
 				user_login_submit(array(), $form_state);
 				drupal_set_message(t('Ha iniciado sesion desde Sayreword'), 'status', FALSE);
-				return '';
-       		}
+				drupal_goto('/misiones', array(), 302);
+				//return '';
+       		} 
 			
 		}
 		drupal_set_message(t('No se puede iniciar sesion'), 'status', FALSE);
