@@ -1,5 +1,8 @@
 <div class="row">
-    <div class="info columns small-10">
+    <div class="small-16 medium-2 columns">
+        <img src="/sites/default/files/flag.png">
+    </div>
+    <div class="info columns small-10 medium-14">
         <div><?php echo $data[ "nombre" ] ?></div>
         <div class="perfil"><?php echo $data[ "perfil" ] ?></div>
         <div class="ciudad">Ciudad:
@@ -39,7 +42,7 @@
 </div>
 <hr/>
 <div class="grupo">
-    <h3>Consulta tus estrellas</h3>
+    <h3>Consulta tus puntos</h3>
 
     <div class="content">
         <?php if ( count( $data[ "distribuidores" ] ) > 1 ): ?>
@@ -54,7 +57,10 @@
             </div>
         <?php endif ?>
         <div class="row">
-            <div class="meses small-12 columns">Escoja un periodo a continuación:
+            <div class="small-16 medium-2 columns text-center">
+                <img src="/sites/default/files/calendar.png">
+            </div>
+            <div class="meses small-16 medium-14 columns">Escoja un periodo a continuación:
                 <select name="mes" id="mes"
                         onchange="document.location.href='/desafios?cedula=<?php echo $data[ "cedula" ] ?>&did=<?php echo $data[ "did" ] ?>&mes='+this.options[this.selectedIndex].value;">
                     <?php foreach ( $data[ "meses" ] as $mes ): ?>
@@ -67,7 +73,7 @@
             </div>
             <?php if ( $data[ "perfil" ] == "Vendedor" || $data[ "perfil" ] == "Jefe de Ventas" ): ?>
                 <div class="meses small-4 columns right" style="font-size: 1.2rem;">
-                    Total de Estrellas <br/>
+                    Total de Puntos <br/> 
                     <?php
                     if(isset($data['mes']) ):?>
                         <strong><?php echo t(date( "F",strtotime($data["mes"]))) ?></strong>:
