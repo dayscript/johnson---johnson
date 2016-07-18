@@ -7,8 +7,29 @@
 		  'page arguments' => array(1,2,3),
 		  'access callback'=> TRUE
 		);
-		return $items;
+		
+		$items['testjson'] = array(
+		  'page callback' => 'testjson',
+		  'access callback'=> TRUE
+		);  
+		return $items; 
 	}
+
+	function testjson(){
+
+		$output = array( 'role'=> "Super Administrador",
+						 'guid'=> "user_1",
+						 'id'=> 1,
+						 'identification'=> "79979760",
+						 'email'=> "jcorrego@gmail.com",
+						 'firstname'=> "Juan Carlos",
+						 'lastname'=> "Orrego",
+		);
+
+		return json_encode($output);
+
+	} 
+
 	function services_login($token,$sessid,$sessionname,$timestamp) {
 		$action = 'encrypt';
 		$output = FALSE;
